@@ -24,8 +24,11 @@ jobs:
       - name: grep for forgotten no_log
         run: '! grep -r "no_log: false" roles'
 
+      - name: install dependencies
+        run: ansible-galaxy role install -r molecule/requirements.yml
+
       - name: install molecule
-        run: ansible-playbook -D install_molecule.yml
+        run: ansible-playbook -D molecule/install_molecule.yml
 
       - name: build test images
         run: |
