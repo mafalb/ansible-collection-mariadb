@@ -1,0 +1,17 @@
+# vim: set ft=yaml ts=2 expandtab:
+---
+
+- name: Verify key and csr
+  hosts: all
+  environment:
+    http_proxy: "{{ lookup('env', 'http_proxy') }}"
+    https_proxy: "{{ lookup('env', 'https_proxy') }}"
+    no_proxy: "{{ lookup('env', 'no_proxy') }}"
+
+  tasks:
+  - name: get info from the mysql instance
+    mysql_info:
+      login_user: root
+      filter: version
+
+...

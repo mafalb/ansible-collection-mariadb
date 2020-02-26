@@ -1,0 +1,12 @@
+# vim: set ft=yaml ts=2 expandtab:
+---
+
+- name: restart mysql
+  when:
+  - mariadb_restart|bool == true
+  - not _mariadb_is_running.changed
+  service:
+    name: "{{ mariadb_daemon }}"
+    state: restarted
+
+...

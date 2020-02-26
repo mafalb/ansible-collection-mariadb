@@ -1,0 +1,12 @@
+# vim: set ft=yaml ts=2 expandtab:
+---
+
+mariadb_server_cnf_main: /etc/my.cnf
+mariadb_server_cnf: /etc/my.cnf.d/server.cnf
+mariadb_daemon: mariadb
+mariadb_server_packages:
+- mariadb-server
+- MySQL-python
+mariadb_logrotate: /etc/logrotate.d/mariadb
+
+...

@@ -1,0 +1,41 @@
+# vim: set ft=yaml ts=2 expandtab:
+---
+
+- name: include OS specific variables
+  with_first_found:
+  - "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+  - "{{ ansible_os_family }}.yml"
+  include_vars:
+    file: "{{ item }}"
+
+- name: assertions
+  assert:
+    that:
+    - mariadb_server_packages|type_debug == 'list'
+    - ansible_service_mgr == 'systemd'
+
+- name: mariadb server is installed
+  package:
+    name: "{{ mariadb_server_packages }}"
+
+- name: server.cnf is in place
+  when: false
+  template:
+    src: "{{ item }}"
+    dest: "{{ mysqld.server_cnf_dest }}"
+    backup: true
+  with_first_found:
+  - "{{ playbook_dir }}/templates/{{ server_cnf_template }}"
+  - server.cnf.j2
+  notify: restart mysql
+
+- debug: var=mysqld
+
+- name: mariadb is running
+  service:
+    name: "{{ mariadb_daemon }}"
+    state: started
+    enabled: true
+  register: _mariadb_is_running
+
+...

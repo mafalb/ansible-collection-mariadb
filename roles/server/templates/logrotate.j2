@@ -1,0 +1,17 @@
+{{ mysql_log_dir }}/general.log
+{{ mysql_log_dir }}/mariadb.log
+{
+	nocreate
+	daily
+	delaycompress
+	dateext
+	sharedscripts
+	postrotate
+		# just if mysqld is really running
+		if test -x /usr/bin/mysqladmin && \
+		   /usr/bin/mysqladmin ping &>/dev/null
+		then
+			/usr/bin/mysqladmin flush-logs
+		fi
+	endscript
+}
