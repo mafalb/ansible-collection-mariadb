@@ -19,6 +19,8 @@ platforms:
     - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
     capabilities:
     - SYS_ADMIN
+    tmpfs:
+    - /run
 
   - name: t_centos8
     image: centos:8
@@ -27,6 +29,8 @@ platforms:
     - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
     capabilities:
     - SYS_ADMIN
+    tmpfs:
+    - /run
 
 provisioner:
   name: ansible
