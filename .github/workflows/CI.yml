@@ -30,11 +30,6 @@ jobs:
       - name: install molecule
         run: ansible-playbook -D molecule/install_molecule.yml
 
-      - name: build test images
-        run: |
-          source ~/.virtualenvs/molecule/bin/activate
-          PY_COLORS=1 molecule create
-
       - name: run molecule tests
         run: |
           source ~/.virtualenvs/molecule/bin/activate
