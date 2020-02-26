@@ -25,7 +25,7 @@ jobs:
         run: '! grep -r "no_log: false" roles'
 
       - name: install dependencies
-        run: ansible-galaxy role install -r molecule/requirements.yml
+        run: ansible-galaxy collection install -r molecule/requirements.yml
 
       - name: install molecule
         run: ansible-playbook -D molecule/install_molecule.yml
