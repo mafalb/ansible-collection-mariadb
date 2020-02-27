@@ -24,7 +24,7 @@ platforms:
     - /run
     - /run/lock
     security_opts:
-    - seccomp:systemd.json
+    - seccomp:unconfined
 
 provisioner:
   name: ansible
