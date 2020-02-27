@@ -29,8 +29,6 @@
   - server.cnf.j2
   notify: restart mysql
 
-- debug: var=mysqld
-
 - name: mariadb is running
   service:
     name: "{{ mariadb_daemon }}"
