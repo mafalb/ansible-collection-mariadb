@@ -17,7 +17,7 @@ platforms:
     command: /usr/sbin/init
     volume_mounts:
     - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    - "/tmp/$(mktemp -d):/run"
+    - "/tmp/gugu:/run"
     capabilities:
     - SYS_ADMIN
     

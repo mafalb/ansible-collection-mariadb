@@ -32,6 +32,7 @@ jobs:
 
       - name: run molecule tests
         run: |
+          mkdir /tmp/gugu
           source ~/.virtualenvs/molecule/bin/activate
           PY_COLORS=1 molecule test
 
