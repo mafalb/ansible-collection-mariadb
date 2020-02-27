@@ -17,8 +17,11 @@ platforms:
     command: /usr/sbin/init
     volume_mounts:
     - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    - "-v /tmp/$(mktemp -d):/run"
     capabilities:
     - SYS_ADMIN
+    
+
 
 provisioner:
   name: ansible
