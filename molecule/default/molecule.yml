@@ -22,7 +22,6 @@ platforms:
     - SYS_ADMIN
     tmpfs:
     - /run
-    - /run/lock
     security_opts:
     - seccomp:unconfined
 
