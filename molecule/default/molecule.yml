@@ -20,8 +20,9 @@ platforms:
     - "/tmp/gugu:/run"
     capabilities:
     - SYS_ADMIN
-    
-
+    tmpfs:
+    - /run
+    - /run/lock
 
 provisioner:
   name: ansible
