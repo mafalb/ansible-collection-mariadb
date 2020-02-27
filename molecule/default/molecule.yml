@@ -25,7 +25,6 @@ platforms:
     - /run/lock
     security_opts:
     - seccomp:unconfined
-    privileged: false
 
 provisioner:
   name: ansible
