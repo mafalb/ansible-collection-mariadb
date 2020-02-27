@@ -23,6 +23,8 @@ platforms:
     tmpfs:
     - /run
     - /run/lock
+    security_opts:
+    - seccomp:unconfined
 
 provisioner:
   name: ansible
