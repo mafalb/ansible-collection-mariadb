@@ -5,8 +5,7 @@ dependency:
   name: galaxy
 
 driver:
-#  name: ${MOLECULE_DRIVER:-podman}
-  name: podman
+  name: docker
 
 lint:
   name: yamllint
@@ -18,8 +17,12 @@ platforms:
     command: /usr/sbin/init
     volume_mounts:
     - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    - "/tmp/gugu:/run"
     capabilities:
     - SYS_ADMIN
+    tmpfs:
+    - /run
+    privileged: ${MOLECULE_PRIVILEGED:-false}
 
 provisioner:
   name: ansible
