@@ -5,8 +5,7 @@ dependency:
   name: galaxy
 
 driver:
-#  name: ${MOLECULE_DRIVER:-podman}
-  name: podman
+  name: docker
 
 lint:
   name: yamllint
@@ -22,9 +21,18 @@ platforms:
     - SYS_ADMIN
     tmpfs:
     - /run
-    - /tmp
-    security_opts:
-    - seccomp:unconfined
+    privileged: ${MOLECULE_PRIVILEGED:-false}
+
+  - name: t_centos8
+    image: centos:8
+    command: /usr/sbin/init
+    volume_mounts:
+    - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    capabilities:
+    - SYS_ADMIN
+    tmpfs:
+    - /run
+    privileged: ${MOLECULE_PRIVILEGED:-false}
 
 provisioner:
   name: ansible

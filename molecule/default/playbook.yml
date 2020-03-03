@@ -1,15 +1,1 @@
-# vim: set ft=yaml ts=2 expandtab:
----
-
-- name: dependencies
-  hosts: all
-  environment:
-    http_proxy: "{{ lookup('env', 'http_proxy') }}"
-    https_proxy: "{{ lookup('env', 'https_proxy') }}"
-    no_proxy: "{{ lookup('env', 'no_proxy') }}"
-
-  roles:
-
-  - role: mafalb.mariadb.server
-
-...
+../docker/playbook.yml
