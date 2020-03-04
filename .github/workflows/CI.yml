@@ -20,7 +20,7 @@ jobs:
         target:
         - centos7
 
-      include:
+        include:
 
         - target: centos7
           distribution: centos
