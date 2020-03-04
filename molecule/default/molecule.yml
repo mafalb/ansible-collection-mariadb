@@ -8,8 +8,11 @@ driver:
 #  name: ${MOLECULE_DRIVER:-podman}
   name: podman
 
-lint:
-  name: yamllint
+lint: |
+  set -e
+  yamllint .
+  ansible-lint -v
+  flake8 -v
 
 platforms:
 

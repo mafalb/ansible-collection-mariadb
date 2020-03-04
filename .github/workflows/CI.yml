@@ -14,6 +14,18 @@ jobs:
 
     runs-on: ubuntu-18.04
 
+    strategy:
+      matrix:
+        distribution:
+        - centos
+        version:
+        - 7
+
+    env:
+    - CI_CONTAINER_IMAGE: ${{ matrix.distribution }}
+    - CI_CONTAINER_TAG: ${{ matrix.version }}
+    - CI_CONTAINER_PRIVILEGED: true
+
     steps:
 
       - name: checkout collection
@@ -22,6 +34,7 @@ jobs:
           path: ansible_collections/mafalb/mariadb
 
       - name: grep for forgotten no_log
+        if: false
         run: '! grep -r "no_log: false" roles'
 
       - name: install dependencies
@@ -34,6 +47,6 @@ jobs:
         run: |
           mkdir /tmp/gugu
           source ~/.virtualenvs/molecule/bin/activate
-          PY_COLORS=1 MOLECULE_PRIVILEGED=true molecule test -s docker
+          PY_COLORS=1 CI_CONTAINER_IMAGE=$CI_CONTAINER_IMAGE CI_CONTAINER_TAG=$CI_CONTAINER_TAG molecule test -s docker
 
 ...

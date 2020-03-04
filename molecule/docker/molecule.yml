@@ -7,32 +7,26 @@ dependency:
 driver:
   name: docker
 
-lint:
-  name: yamllint
+lint: |
+  set -e
+  ! grep -r "no_log: false" .
+  yamllint .
+  ansible-lint -v
+  flake8 -v
 
 platforms:
 
-  - name: t_centos7
-    image: centos:7
+  - name: t_${CI_CONTAINER_IMAGE:-centos}${CI_CONTAINER_TAG:-7}
+    image: ${CI_CONTAINER_IMAGE:-centos}:${CI_CONTAINER_TAG:-7}
     command: /usr/sbin/init
     volume_mounts:
     - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
     capabilities:
     - SYS_ADMIN
-    tmpfs:
-    - /run
-    privileged: ${MOLECULE_PRIVILEGED:-false}
-
-  - name: t_centos8
-    image: centos:8
-    command: /usr/sbin/init
-    volume_mounts:
-    - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    capabilities:
-    - SYS_ADMIN
-    tmpfs:
-    - /run
-    privileged: ${MOLECULE_PRIVILEGED:-false}
+    security_opts:
+    - seccomp=unconfined
+    privileged: ${CI_CONTAINER_PRIVILEGED:-false}
+    tty: true
 
 provisioner:
   name: ansible
