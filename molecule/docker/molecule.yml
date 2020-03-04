@@ -18,7 +18,7 @@ platforms:
 
   - name: t_${CI_CONTAINER_IMAGE:-centos}${CI_CONTAINER_TAG:-7}
     image: ${CI_CONTAINER_IMAGE:-centos}:${CI_CONTAINER_TAG:-7}
-    command: /usr/sbin/init
+    command: /lib/systemd/systemd
     volume_mounts:
     - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
     capabilities:
