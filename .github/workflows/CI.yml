@@ -27,7 +27,7 @@ jobs:
           version: 7
 
     env:
-      CI_CONTAINER_IMAGE: ${{ matrix.distribution }}:${{ matrix.version }}
+      CI_CONTAINER_IMAGE: ${{ matrix.distribution }}
       CI_CONTAINER_TAG: ${{ matrix.version }}
       CI_CONTAINER_PRIVILEGED: true
 
