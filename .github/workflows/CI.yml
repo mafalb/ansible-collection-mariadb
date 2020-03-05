@@ -43,7 +43,7 @@ jobs:
         run: '! grep -r "no_log: false" roles'
 
       - name: checkout collection
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           path: ansible_collections/mafalb/ansible
           repository: https://github.com/mafalb/ansible-collection-ansible
