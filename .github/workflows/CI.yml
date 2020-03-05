@@ -45,7 +45,7 @@ jobs:
       - name: checkout collection
         uses: actions/checkout@v2
         with:
-          path: /home/runner/.ansible/collections/ansible_collections/mafalb/ansible
+          path: ansible_collections/mafalb/ansible
           repository: mafalb/ansible-collection-ansible
           ref: dev
 
