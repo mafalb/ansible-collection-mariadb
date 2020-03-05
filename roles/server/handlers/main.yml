@@ -3,7 +3,7 @@
 
 - name: restart mysql
   when:
-  - mariadb_restart|bool == true
+  - mariadb_restart|bool
   - not _mariadb_is_running.changed
   service:
     name: "{{ mariadb_daemon }}"
