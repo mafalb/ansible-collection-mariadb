@@ -42,6 +42,13 @@ jobs:
         if: false
         run: '! grep -r "no_log: false" roles'
 
+      - name: checkout collection
+        uses: actions/checkout@v1
+        repository: https://github.com/mafalb/ansible-collection-ansible
+        with:
+          path: ansible_collections/mafalb/ansible
+          ref: dev
+
       - name: install dependencies
         run: ansible-galaxy collection install -r molecule/requirements.yml
 

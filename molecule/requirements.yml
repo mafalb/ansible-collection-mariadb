@@ -2,4 +2,4 @@
 ---
 
 collections:
-- mafalb.ansible
+- name: mafalb.ansible
