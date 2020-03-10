@@ -22,7 +22,6 @@ jobs:
 
         target:
         - centos7
-        - centos8
 
         include:
 
