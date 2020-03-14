@@ -8,6 +8,14 @@
     https_proxy: "{{ lookup('env', 'https_proxy') }}"
     no_proxy: "{{ lookup('env', 'no_proxy') }}"
 
+  pre_tasks:
+
+  # https://github.com/geerlingguy/ansible-role-composer/issues/54
+  #
+  - name: get status of systemd-tmpfiles-setup.service # noqa 301 303
+    when: ansible_service_mgr == 'systemd'
+    command: systemctl status systemd-tmpfiles-setup.service
+
   roles:
 
   - role: mafalb.mariadb.server
