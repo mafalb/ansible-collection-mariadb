@@ -46,10 +46,6 @@ jobs:
         with:
           path: ansible_collections/mafalb/mariadb
 
-      - name: grep for forgotten no_log
-        if: false
-        run: '! grep -r "no_log: false" roles'
-
       - name: checkout collection
         uses: actions/checkout@v2
         with:
