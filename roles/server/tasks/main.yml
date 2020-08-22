@@ -25,6 +25,7 @@
     src: "{{ item }}"
     dest: "{{ mysqld.server_cnf_dest }}"
     backup: true
+    mode: 0644
   with_first_found:
   - "{{ playbook_dir }}/templates/{{ server_cnf_template }}"
   - server.cnf.j2
