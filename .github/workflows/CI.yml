@@ -4,15 +4,20 @@
 name: CI
 
 on:
+
   push:
-  pull_request:
+    branches:
+    - '**'
+    tags-ignore:
+    - '*'
+
   schedule:
-    - cron: '40 12 * * 6'
+    - cron: '40 11 * * 6'
 
 jobs:
   mariadb-server:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     strategy:
 
@@ -21,54 +26,86 @@ jobs:
       matrix:
 
         target:
+        - fedora33
+        - fedora34
+        - c8s
+        - alma8
+        - rocky8
         - centos7
         - centos8
+        - debian9
+        - debian10
+        - ubuntu16
+        - ubuntu18
+        - ubuntu20
+
+        ansible_version:
+        - '2.9'
+        - '2.10'
+        - '2.11'
 
         include:
-
+        - target: fedora33
+          image: docker.io/fedora:33
+        - target: fedora34
+          image: docker.io/fedora:34
+        - target: c8s
+          image: quay.io/centos/centos:stream8
+        - target: alma8
+          image: quay.io/almalinux/almalinux:8
+        - target: rocky8
+          image: quay.io/rockylinux/rockylinux:8
         - target: centos7
-          image: centos
-          tag: 7
-
+          image: quay.io/centos/centos:7
         - target: centos8
-          image: centos
-          tag: 8
+          image: quay.io/centos/centos:8
+        - target: debian9
+          image: docker.io/debian:stretch
+        - target: debian10
+          image: docker.io/debian:buster
+        - target: ubuntu16
+          image: docker.io/ubuntu:xenial
+        - target: ubuntu18
+          image: docker.io/ubuntu:bionic
+        - target: ubuntu20
+          image: docker.io/ubuntu:focal
 
     env:
-      CI_CONTAINER_IMAGE: ${{ matrix.image }}
-      CI_CONTAINER_TAG: ${{ matrix.tag }}
-      CI_CONTAINER_PRIVILEGED: true
+      ANSIBLE_VERSION: ${{ matrix.ansible_version }}
+      CI_IMAGE: ${{ matrix.image }}
+      CI_HOSTNAME: ci-${{ matrix.target }}
+      PY_COLORS: 1
+      ANSIBLE_FORCE_COLOR: 1
+ 
+    defaults:
+      run:
+        working-directory: ansible_collections/mafalb/epel
 
     steps:
 
-      - name: checkout collection
-        uses: actions/checkout@v1
-        with:
-          path: ansible_collections/mafalb/mariadb
+    - name: checkout collection mafalb.epel
+      uses: actions/checkout@v2
+      with:
+        path: ansible_collections/mafalb/epel
 
-      - name: checkout collection
-        if: false
-        uses: actions/checkout@v2
-        with:
-          path: ansible_collections/mafalb/ansible
-          repository: mafalb/ansible-collection-ansible
-          ref: dev
+    # use the github actions ansible
+    #
+    - name: get mafalb.ansible
+      run: ansible-galaxy collection install mafalb.ansible
 
-      - name: mv ansible
-        if: false
-        run: |
-          mkdir -p ~/.ansible/collections/ansible_collections/mafalb
-          mv ansible_collections/mafalb/ansible ~/.ansible/collections/ansible_collections/mafalb/
+    - name: install molecule
+      run: |
+        sudo apt-get install ansible
+        /usr/bin/ansible-playbook -D ~/.ansible/collections/ansible_collections/mafalb/ansible/playbooks/molecule.yml -e molecule_ansible_version=${{ matrix.ansible_version }} -t all,debug
 
-      - name: install dependencies
-        run: ansible-galaxy collection install -r molecule/requirements.yml
+    - name: check ansible version
+      run: |
+        source ~/.virtualenvs/molecule/bin/activate
+        ansible --version | grep "^ansible.* ${{ matrix.ansible_version }}" 
 
-      - name: install molecule
-        run: ansible-playbook -D molecule/install_molecule.yml
-
-      - name: run molecule tests
-        run: |
-          source ~/.virtualenvs/molecule/bin/activate
-          PY_COLORS=1 CI_CONTAINER_PRIVILEGED=true CI_CONTAINER_IMAGE=$CI_CONTAINER_IMAGE CI_CONTAINER_TAG=$CI_CONTAINER_TAG molecule test
+    - name: run molecule tests
+      run: |
+        source ~/.virtualenvs/molecule/bin/activate
+        molecule test
 
 ...

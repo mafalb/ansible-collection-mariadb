@@ -1,0 +1,45 @@
+# vim: set ft=yaml ts=2 expandtab:
+---
+
+- name: test db does not exist
+  mysql_db:
+    name: test
+    state: absent
+
+- name: anonymous user does not exist
+  mysql_user:
+    name: ''
+    host_all: true
+    state: absent
+
+- name: check if .my.cnf exists
+  stat:
+    path: /root/.my.cnf
+  register: mariadb.__root_cnf
+
+- name: password for root is set
+  with_items:
+    - localhost
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ lookup('password', '/tmp/.my.root.passwordfile') }}"
+
+- name: .my.cnf for root
+  template:
+    src: root.cnf
+    dest: /root/.my.cnf
+    backup: false
+    mode: 00600
+
+- name: password for root is set
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ lookup('password', '/tmp/.my.root.passwordfile') }}"
+
+...

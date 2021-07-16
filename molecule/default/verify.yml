@@ -3,10 +3,10 @@
 
 - name: Verify key and csr
   hosts: all
+
   environment:
-    http_proxy: "{{ lookup('env', 'http_proxy') }}"
-    https_proxy: "{{ lookup('env', 'https_proxy') }}"
-    no_proxy: "{{ lookup('env', 'no_proxy') }}"
+    http_proxy: http://ci-proxy:3128
+    https_proxy: http://ci-proxy:3128
 
   tasks:
 
