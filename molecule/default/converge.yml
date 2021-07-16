@@ -2,20 +2,11 @@
 ---
 
 - name: dependencies
-  hosts: all
+  hosts: ci
 
   environment:
     http_proxy: http://ci-proxy:3128
     https_proxy: http://ci-proxy:3128
-
-  pre_tasks:
-
-  # https://github.com/geerlingguy/ansible-role-composer/issues/54
-  #
-  - name: get status of systemd-tmpfiles-setup.service # noqa 301 303
-    when: ansible_service_mgr == 'systemd'
-    changed_when: false
-    command: systemctl status systemd-tmpfiles-setup.service
 
   roles:
 

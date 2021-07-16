@@ -20,7 +20,7 @@
 ---
 
 - name: Set up proxy
-  hosts: proxy_group
+  hosts: ci-proxy
 
   pre_tasks:
 
