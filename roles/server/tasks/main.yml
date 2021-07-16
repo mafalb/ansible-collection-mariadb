@@ -17,7 +17,6 @@
 - name: mariadb server is installed
   package:
     name: "{{ mariadb_server_packages }}"
-    lock_timeout: 120
 
 - name: server.cnf is in place
   when: false
