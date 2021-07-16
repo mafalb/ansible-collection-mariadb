@@ -79,14 +79,14 @@ jobs:
  
     defaults:
       run:
-        working-directory: ansible_collections/mafalb/epel
+        working-directory: ansible_collections/mafalb/mariadb
 
     steps:
 
-    - name: checkout collection mafalb.epel
+    - name: checkout collection mafalb.mariadb
       uses: actions/checkout@v2
       with:
-        path: ansible_collections/mafalb/epel
+        path: ansible_collections/mafalb/mariadb
 
     # use the github actions ansible
     #
