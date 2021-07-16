@@ -6,7 +6,7 @@ mariadb_server_cnf: /etc/my.cnf.d/mariadb-server.cnf
 mariadb_daemon: mariadb
 mariadb_default_stream: '10.3'
 mariadb_server_packages:
-- "@mariadb-{{ version|default(mariadb_default_stream) }}"
+- "@mariadb:{{ version|default(mariadb_default_stream) }}"
 - python3-PyMySQL
 mariadb_logrotate: /etc/logrotate.d/mariadb
 
