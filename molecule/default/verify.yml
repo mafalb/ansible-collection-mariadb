@@ -16,7 +16,8 @@
       filter: version
     register: _mariadb_info
 
-  - debug:
+  - name: debug
+    debug:
       var: _mariadb_info
 
 ...

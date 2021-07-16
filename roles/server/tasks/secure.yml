@@ -15,9 +15,10 @@
 - name: check if .my.cnf exists
   stat:
     path: /root/.my.cnf
-  register: mariadb.__root_cnf
+  register: _root_cnf
 
 - name: password for root is set
+  no_log: true
   with_items:
     - localhost
   mysql_user:
@@ -33,6 +34,7 @@
     mode: 00600
 
 - name: password for root is set
+  no_log: true
   with_items:
     - "{{ ansible_hostname }}"
     - 127.0.0.1

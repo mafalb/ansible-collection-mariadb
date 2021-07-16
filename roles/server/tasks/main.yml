@@ -38,6 +38,4 @@
     enabled: true
   register: _mariadb_is_running
 
-- name: installation is secured
-  
 ...
