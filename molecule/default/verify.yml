@@ -2,7 +2,7 @@
 ---
 
 - name: Verify key and csr
-  hosts: all
+  hosts: ci
 
   environment:
     http_proxy: http://ci-proxy:3128
