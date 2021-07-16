@@ -15,7 +15,7 @@ on:
     - cron: '40 11 * * 6'
 
 jobs:
-  mariadb-server:
+  CI:
 
     runs-on: ubuntu-20.04
 
