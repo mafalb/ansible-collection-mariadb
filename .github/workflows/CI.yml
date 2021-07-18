@@ -104,7 +104,7 @@ jobs:
 
     - name: install molecule
       run: |
-        ansible-playbook -D ~/.ansible/collections/ansible_collections/mafalb/ansible/playbooks/molecule.yml -e molecule_ansible_version=${{ matrix.ansible_version }} -t all,debug
+        ansible-playbook -e ansible_python_interpreter=python3 -D ~/.ansible/collections/ansible_collections/mafalb/ansible/playbooks/molecule.yml -e molecule_ansible_version=${{ matrix.ansible_version }} -t all,debug
 
     - name: check ansible version
       run: |
