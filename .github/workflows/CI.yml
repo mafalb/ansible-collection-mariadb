@@ -97,10 +97,14 @@ jobs:
     - name: get mafalb.ansible
       run: ansible-galaxy collection install mafalb.ansible
 
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.6'
+
     - name: install molecule
       run: |
-        ansible --version
-        ansible-playbook -e ansible_python_interpreter=/opt/pipx/venvs/ansible-base/bin/python3 -D ~/.ansible/collections/ansible_collections/mafalb/ansible/playbooks/molecule.yml -e molecule_ansible_version=${{ matrix.ansible_version }} -t all,debug
+        ansible-playbook -D ~/.ansible/collections/ansible_collections/mafalb/ansible/playbooks/molecule.yml -e molecule_ansible_version=${{ matrix.ansible_version }} -t all,debug
 
     - name: check ansible version
       run: |
