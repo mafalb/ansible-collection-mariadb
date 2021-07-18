@@ -9,5 +9,6 @@ mariadb_server_packages:
 - "@mariadb:{{ version|default(mariadb_default_stream) }}"
 - python3-PyMySQL
 mariadb_logrotate: /etc/logrotate.d/mariadb
+mariadb_socket: /var/lib/mysql/mysql.sock
 
 ...

@@ -8,5 +8,6 @@ mariadb_server_packages:
 - mariadb-server
 - MySQL-python
 mariadb_logrotate: /etc/logrotate.d/mariadb
+mariadb_socket: /var/lib/mysql/mysql.sock
 
 ...

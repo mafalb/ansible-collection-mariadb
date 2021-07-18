@@ -8,11 +8,18 @@
     http_proxy: http://ci-proxy:3128
     https_proxy: http://ci-proxy:3128
 
+  vars:
+    mariadb_socket:
+      'Debian': /run/mysqld/mysqld.sock
+      'RedHat': /var/lib/mysql/mysql.sock
+      'Rocky': /var/lib/mysql/mysql.sock
+
   tasks:
 
   - name: get info from the mysql instance
     mysql_info:
       login_user: root
+      login_unix_socket: "{{ mariadb_socket[ansible_os_family] }}"
       filter: version
     register: _mariadb_info
 
