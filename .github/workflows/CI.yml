@@ -50,6 +50,7 @@ jobs:
           privileged: true
         - target: fedora34
           image: docker.io/fedora:34
+          privileged: true
         - target: c8s
           image: quay.io/centos/centos:stream8
         - target: alma8
