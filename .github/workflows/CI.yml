@@ -47,8 +47,10 @@ jobs:
         include:
         - target: fedora33
           image: docker.io/fedora:33
+          privileged: true
         - target: fedora34
           image: docker.io/fedora:34
+          privileged: true
         - target: c8s
           image: quay.io/centos/centos:stream8
         - target: alma8
@@ -63,6 +65,7 @@ jobs:
           image: docker.io/debian:stretch
         - target: debian10
           image: docker.io/debian:buster
+          privileged: true
         - target: ubuntu16
           image: docker.io/ubuntu:xenial
         - target: ubuntu18
