@@ -30,11 +30,20 @@
   - server.cnf.j2
   notify: restart mysql
 
-- name: mariadb is running
-  service:
-    name: "{{ mariadb_daemon }}"
-    state: started
-    enabled: true
-  register: _mariadb_is_running
+- block:
+  - name: mariadb is running
+    service:
+      name: "{{ mariadb_daemon }}"
+      state: started
+      enabled: true
+    register: _mariadb_is_running
+  rescue:
+  - name: get logs
+    command: journalctl -n 25
+    register: _log
+  - name: debug
+    debug: var=_log
+  - name: fail
+    fail:
 
 ...
