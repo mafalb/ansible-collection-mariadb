@@ -43,9 +43,11 @@ jobs:
         #
         - target: fedora35
           image: quay.io/fedora/fedora:35-x86_64
+          privileged: true
 
         - target: c9s
           image: quay.io/centos/centos:stream9-development
+          privileged: true
 
         - target: debian11
           image: docker.io/debian:bullseye
