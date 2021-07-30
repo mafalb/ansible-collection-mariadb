@@ -49,6 +49,7 @@ jobs:
 
         - target: debian11
           image: docker.io/debian:bullseye
+          privileged: true
 
         - target: ubuntu2110
           image: docker.io/ubuntu:impish
